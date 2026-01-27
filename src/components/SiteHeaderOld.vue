@@ -8,21 +8,10 @@ const links = [
   { label: "Услуги", href: "#services" },
   { label: "Преимущества", href: "#advantages" },
   { label: "Процесс", href: "#process" },
-  { label: "Партнеры", href: "#partners" },
   { label: "Лицензии", href: "#licenses" },
-  { label: "Проекты", href: "#projects" },
-  { label: "Сертификаты", href: "#certificates" },
   { label: "FAQ", href: "#faq" },
   { label: "Контакты", href: "#contacts" },
 ];
-
-function toggleMenu() {
-  isOpen.value = !isOpen.value;
-}
-
-function closeMenu() {
-  isOpen.value = false;
-}
 </script>
 
 <template>
@@ -37,23 +26,17 @@ function closeMenu() {
       </a>
 
       <nav class="nav nav--desktop" aria-label="Навигация">
-        <a
-          v-for="linkItem in links"
-          :key="linkItem.href"
-          class="nav__link"
-          :href="linkItem.href"
-        >
-          {{ linkItem.label }}
-        </a>
+        <a v-for="l in links" :key="l.href" class="nav__link" :href="l.href">{{
+          l.label
+        }}</a>
       </nav>
 
       <div class="header__actions">
+        <a class="btn btn-accent" href="#contacts">Получить консультацию</a>
         <button
           class="burger"
-          type="button"
-          @click="toggleMenu"
+          @click="isOpen = !isOpen"
           :aria-expanded="isOpen"
-          aria-label="Открыть меню"
         >
           <span></span><span></span><span></span>
         </button>
@@ -63,14 +46,17 @@ function closeMenu() {
     <div v-if="isOpen" class="nav nav--mobile">
       <div class="container nav__mobileInner">
         <a
-          v-for="linkItem in links"
-          :key="linkItem.href"
+          v-for="l in links"
+          :key="l.href"
           class="nav__link"
-          :href="linkItem.href"
-          @click="closeMenu"
+          :href="l.href"
+          @click="isOpen = false"
         >
-          {{ linkItem.label }}
+          {{ l.label }}
         </a>
+        <a class="btn btn-accent" href="#contacts" @click="isOpen = false"
+          >Запросить расчёт</a
+        >
       </div>
     </div>
   </header>
