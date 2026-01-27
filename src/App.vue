@@ -13,6 +13,9 @@ import FaqSection from "./components/FaqSection.vue";
 import ContactSection from "./components/ContactSection.vue";
 import SiteFooter from "./components/SiteFooter.vue";
 import GallerySection from "./components/GallerySection.vue";
+import ProjectsSection from "./components/ProjectsSection.vue";
+import CertificatesSection from "./components/CertificatesSection.vue";
+import WorksSection from "./components/WorksSection.vue";
 
 useReveal(".section");
 useSpotlight(".spotlight");
@@ -25,7 +28,14 @@ useSpotlight(".spotlight");
       <HeroSection />
       <ServicesSection />
       <AdvantagesSection />
+
       <GallerySection />
+
+      <ProjectsSection />
+      <CertificatesSection />
+
+      <WorksSection />
+
       <ProcessSection />
       <LicensesSection />
       <FaqSection />
