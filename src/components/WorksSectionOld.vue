@@ -1,12 +1,5 @@
 <script setup>
-import {
-  computed,
-  onBeforeUnmount,
-  onMounted,
-  ref,
-  watch,
-  nextTick,
-} from "vue";
+import { onBeforeUnmount, onMounted, ref } from "vue";
 
 const works = [
   {
@@ -180,57 +173,13 @@ const works = [
   },
 ];
 
-// UI state
-const searchText = ref("");
-const initialVisibleCount = 10;
-const visibleCount = ref(initialVisibleCount);
-
-// filtering
-const filteredWorks = computed(() => {
-  const query = searchText.value.trim().toLowerCase();
-  if (!query) return works;
-
-  return works.filter((item) => {
-    const titleText = (item.title || "").toLowerCase();
-    const clientText = (item.client || "").toLowerCase();
-    return titleText.includes(query) || clientText.includes(query);
-  });
-});
-
-const visibleWorks = computed(() =>
-  filteredWorks.value.slice(0, visibleCount.value)
-);
-
-const hasMore = computed(() => visibleCount.value < filteredWorks.value.length);
-
-const resultLabel = computed(() => {
-  const total = filteredWorks.value.length;
-  const shown = visibleWorks.value.length;
-  if (!searchText.value.trim()) return `Показано: ${shown} из ${total}`;
-  return `Найдено: ${total} (показано ${shown})`;
-});
-
-function showMore() {
-  visibleCount.value = Math.min(
-    visibleCount.value + 10,
-    filteredWorks.value.length
-  );
-}
-
-function resetFilter() {
-  searchText.value = "";
-  visibleCount.value = initialVisibleCount;
-}
-
-// reveal animation (IntersectionObserver)
 const listElement = ref(null);
 let intersectionObserver = null;
 
-function setupObserver() {
+onMounted(() => {
   if (!listElement.value) return;
-  const items = Array.from(listElement.value.querySelectorAll(".work-item"));
 
-  if (intersectionObserver) intersectionObserver.disconnect();
+  const items = Array.from(listElement.value.querySelectorAll(".work-item"));
 
   intersectionObserver = new IntersectionObserver(
     (entries) => {
@@ -242,25 +191,10 @@ function setupObserver() {
   );
 
   items.forEach((item) => intersectionObserver.observe(item));
-}
-
-onMounted(() => {
-  setupObserver();
 });
 
 onBeforeUnmount(() => {
   if (intersectionObserver) intersectionObserver.disconnect();
-});
-
-// when list changes (search/show more) -> re-attach observer to new nodes
-watch([searchText, visibleCount], async () => {
-  await nextTick();
-  setupObserver();
-});
-
-// if user searches -> show first page again (more UX-friendly)
-watch(searchText, () => {
-  visibleCount.value = initialVisibleCount;
 });
 </script>
 
@@ -268,38 +202,11 @@ watch(searchText, () => {
   <section id="works" class="works section">
     <div class="container">
       <div class="works-shell">
-        <div class="works-head">
-          <h2 class="section-title">ОСНОВНЫЕ ВЫПОЛНЕННЫЕ РАБОТЫ</h2>
-
-          <div class="works-tools">
-            <label class="search">
-              <span class="search-icon" aria-hidden="true">⌕</span>
-              <input
-                v-model="searchText"
-                class="search-input"
-                type="text"
-                placeholder="Поиск по работам или заказчику..."
-              />
-            </label>
-
-            <button
-              class="ghost-btn"
-              type="button"
-              @click="resetFilter"
-              :disabled="!searchText.trim()"
-            >
-              Сброс
-            </button>
-          </div>
-
-          <div class="works-meta">
-            <span class="meta-pill">{{ resultLabel }}</span>
-          </div>
-        </div>
+        <h2 class="section-title">ОСНОВНЫЕ ВЫПОЛНЕННЫЕ РАБОТЫ</h2>
 
         <ul ref="listElement" class="works-list">
           <li
-            v-for="(work, index) in visibleWorks"
+            v-for="(work, index) in works"
             :key="`${index}-${work.title}`"
             class="work-item"
           >
@@ -307,34 +214,23 @@ watch(searchText, () => {
               <div class="work-bullet" aria-hidden="true"></div>
 
               <div class="work-content">
-                <h3 class="work-title">{{ work.title }}</h3>
-                <p v-if="work.client" class="work-client">{{ work.client }}</p>
+                <h3 class="work-title">
+                  {{ work.title }}
+                </h3>
+
+                <p v-if="work.client" class="work-client">
+                  {{ work.client }}
+                </p>
               </div>
             </div>
 
             <div
-              v-if="index !== visibleWorks.length - 1"
+              v-if="index !== works.length - 1"
               class="work-divider"
               aria-hidden="true"
             ></div>
           </li>
         </ul>
-
-        <div class="works-footer">
-          <button
-            v-if="hasMore"
-            class="accent-btn"
-            type="button"
-            @click="showMore"
-          >
-            Показать ещё
-          </button>
-
-          <div v-else class="end-hint">
-            <span class="end-dot" aria-hidden="true"></span>
-            <span>Это все записи по текущему фильтру</span>
-          </div>
-        </div>
       </div>
     </div>
   </section>
@@ -371,7 +267,7 @@ watch(searchText, () => {
   border: 1px solid rgba(233, 238, 246, 0.1);
   border-radius: 24px;
   box-shadow: var(--shadow);
-  padding: 22px;
+  padding: 26px;
   position: relative;
   overflow: hidden;
 }
@@ -388,105 +284,18 @@ watch(searchText, () => {
   );
 }
 
-.works-head {
-  position: relative;
-  z-index: 1;
-}
-
 .section-title {
-  margin: 0 0 14px;
+  margin: 0 0 18px;
   text-align: center;
   font-size: 32px;
   color: var(--text);
   letter-spacing: 0.4px;
 }
 
-.works-tools {
-  display: flex;
-  gap: 10px;
-  align-items: center;
-  justify-content: center;
-  flex-wrap: wrap;
-  margin-bottom: 10px;
-}
-
-.search {
-  position: relative;
-  width: min(560px, 100%);
-}
-
-.search-icon {
-  position: absolute;
-  left: 12px;
-  top: 50%;
-  transform: translateY(-50%);
-  color: rgba(233, 238, 246, 0.6);
-  font-size: 14px;
-}
-
-.search-input {
-  width: 100%;
-  height: 42px;
-  padding: 0 14px 0 34px;
-  border-radius: 999px;
-  border: 1px solid rgba(233, 238, 246, 0.14);
-  background: rgba(16, 26, 46, 0.5);
-  color: var(--text);
-  outline: none;
-  transition: border-color 0.25s var(--ease), transform 0.25s var(--ease);
-}
-
-.search-input:focus {
-  border-color: rgba(201, 164, 92, 0.45);
-  transform: translateY(-1px);
-}
-
-.search-input::placeholder {
-  color: rgba(169, 180, 199, 0.8);
-}
-
-.ghost-btn {
-  height: 42px;
-  padding: 0 14px;
-  border-radius: 999px;
-  border: 1px solid rgba(233, 238, 246, 0.14);
-  background: transparent;
-  color: var(--text);
-  cursor: pointer;
-  transition: transform 0.25s var(--ease), border-color 0.25s var(--ease);
-}
-
-.ghost-btn:hover:not(:disabled) {
-  transform: translateY(-1px);
-  border-color: rgba(201, 164, 92, 0.35);
-}
-
-.ghost-btn:disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
-}
-
-.works-meta {
-  display: flex;
-  justify-content: center;
-  margin: 6px 0 10px;
-}
-
-.meta-pill {
-  font-size: 12px;
-  color: rgba(233, 238, 246, 0.85);
-  border: 1px solid rgba(233, 238, 246, 0.14);
-  background: rgba(16, 26, 46, 0.4);
-  padding: 6px 10px;
-  border-radius: 999px;
-}
-
 .works-list {
   list-style: none;
   padding: 0;
   margin: 0;
-  position: relative;
-  z-index: 1;
 }
 
 .work-item {
@@ -546,46 +355,6 @@ watch(searchText, () => {
     rgba(233, 238, 246, 0.14),
     transparent
   );
-}
-
-.works-footer {
-  position: relative;
-  z-index: 1;
-  margin-top: 14px;
-  display: flex;
-  justify-content: center;
-}
-
-.accent-btn {
-  height: 44px;
-  padding: 0 18px;
-  border-radius: 999px;
-  border: 1px solid rgba(201, 164, 92, 0.45);
-  background: rgba(201, 164, 92, 0.14);
-  color: var(--text);
-  cursor: pointer;
-  transition: transform 0.25s var(--ease), background 0.25s var(--ease);
-}
-
-.accent-btn:hover {
-  transform: translateY(-1px);
-  background: rgba(201, 164, 92, 0.2);
-}
-
-.end-hint {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  color: rgba(169, 180, 199, 0.9);
-  font-size: 13px;
-}
-
-.end-dot {
-  width: 8px;
-  height: 8px;
-  border-radius: 999px;
-  background: rgba(92, 132, 255, 0.7);
-  box-shadow: 0 0 0 4px rgba(92, 132, 255, 0.12);
 }
 
 @media (max-width: 640px) {
