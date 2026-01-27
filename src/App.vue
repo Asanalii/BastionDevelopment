@@ -16,7 +16,6 @@ import GallerySection from "./components/GallerySection.vue";
 
 useReveal(".section");
 useSpotlight(".spotlight");
-//
 </script>
 
 <template>
