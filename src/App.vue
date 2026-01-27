@@ -1,0 +1,44 @@
+<!-- App.vue -->
+<script setup>
+import { useReveal } from "./composables/useReveal";
+import { useSpotlight } from "./composables/useSpotlight";
+
+import SiteHeader from "./components/SiteHeader.vue";
+import HeroSection from "./components/HeroSection.vue";
+import ServicesSection from "./components/ServicesSection.vue";
+import AdvantagesSection from "./components/AdvantagesSection.vue";
+import ProcessSection from "./components/ProcessSection.vue";
+import LicensesSection from "./components/LicensesSection.vue";
+import FaqSection from "./components/FaqSection.vue";
+import ContactSection from "./components/ContactSection.vue";
+import SiteFooter from "./components/SiteFooter.vue";
+import GallerySection from "./components/GallerySection.vue";
+
+useReveal(".section");
+useSpotlight(".spotlight");
+//
+</script>
+
+<template>
+  <div class="app">
+    <SiteHeader />
+    <main>
+      <HeroSection />
+      <ServicesSection />
+      <AdvantagesSection />
+      <GallerySection />
+      <ProcessSection />
+      <LicensesSection />
+      <FaqSection />
+      <ContactSection />
+    </main>
+    <SiteFooter />
+  </div>
+</template>
+
+<style scoped>
+#app {
+  position: relative;
+  z-index: 1;
+}
+</style>
