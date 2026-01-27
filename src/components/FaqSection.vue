@@ -25,7 +25,11 @@ const items = [
   },
 ];
 
-const open = ref(0);
+const openIndex = ref(0);
+
+function toggle(index) {
+  openIndex.value = openIndex.value === index ? -1 : index;
+}
 </script>
 
 <template>
@@ -36,15 +40,23 @@ const open = ref(0);
 
       <div class="faq">
         <div
-          v-for="(it, i) in items"
+          v-for="(it, index) in items"
           :key="it.q"
           class="card card-pad faq__item"
+          :class="{ 'is-open': openIndex === index }"
+          @click="toggle(index)"
         >
-          <button class="faq__q" @click="open = open === i ? -1 : i">
+          <button class="faq__q" type="button">
             <span>{{ it.q }}</span>
-            <span class="faq__sign">{{ open === i ? "—" : "+" }}</span>
+            <span class="faq__sign">{{ openIndex === index ? "—" : "+" }}</span>
           </button>
-          <div v-if="open === i" class="faq__a">{{ it.a }}</div>
+
+          <!-- Важно: НЕ v-if. Всегда в DOM -->
+          <div class="faq__aWrap" :class="{ 'is-open': openIndex === index }">
+            <div class="faq__a">
+              {{ it.a }}
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -56,9 +68,18 @@ const open = ref(0);
   display: grid;
   gap: 12px;
 }
+
 .faq__item {
   box-shadow: none;
+  cursor: pointer;
+  transition: border-color 0.25s var(--ease), transform 0.25s var(--ease);
 }
+
+.faq__item:hover {
+  transform: translateY(-1px);
+  border-color: rgba(201, 164, 92, 0.25);
+}
+
 .faq__q {
   width: 100%;
   text-align: left;
@@ -72,11 +93,36 @@ const open = ref(0);
   cursor: pointer;
   padding: 0;
 }
+
 .faq__sign {
   color: var(--accent);
   font-size: 18px;
   line-height: 1;
+  transition: transform 0.25s var(--ease), opacity 0.25s var(--ease);
+  opacity: 0.9;
 }
+
+.faq__item.is-open .faq__sign {
+  transform: rotate(0deg);
+  opacity: 1;
+}
+
+/* === Плавное открытие/закрытие === */
+.faq__aWrap {
+  overflow: hidden;
+  max-height: 0;
+  opacity: 0;
+  transform: translateY(-2px);
+  transition: max-height 0.35s var(--ease), opacity 0.25s var(--ease),
+    transform 0.25s var(--ease);
+}
+
+.faq__aWrap.is-open {
+  max-height: 140px; /* хватает на 2-4 строки ответа */
+  opacity: 1;
+  transform: translateY(0);
+}
+
 .faq__a {
   margin-top: 10px;
   color: var(--muted);
