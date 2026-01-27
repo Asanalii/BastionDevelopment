@@ -16,6 +16,7 @@ import GallerySection from "./components/GallerySection.vue";
 import ProjectsSection from "./components/ProjectsSection.vue";
 import CertificatesSection from "./components/CertificatesSection.vue";
 import WorksSection from "./components/WorksSection.vue";
+import ScrollToTopButton from "./components/ScrollToTopButton.vue";
 
 useReveal(".section");
 useSpotlight(".spotlight");
@@ -42,6 +43,8 @@ useSpotlight(".spotlight");
       <ContactSection />
     </main>
     <SiteFooter />
+
+    <ScrollToTopButton />
   </div>
 </template>
 
