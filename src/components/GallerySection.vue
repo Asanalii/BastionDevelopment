@@ -93,9 +93,10 @@ const partners = computed(() => [
   <section id="partners" class="partners section">
     <div class="partners-container">
       <div class="section-head">
-        <h2 class="section-title">НАШИ ПАРТНЕРЫ</h2>
+        <h2 class="section-title">НАШИ ЗАКАЗЧИКИ</h2>
         <p class="section-subtitle-partner">
-          Компании, с которыми мы работаем и которым доверяем.
+          Компании, на объектах которых мы выполняли работы и которые доверяют
+          нашим специалистам.
         </p>
       </div>
 

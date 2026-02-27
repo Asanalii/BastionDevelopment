@@ -16,7 +16,7 @@ const aboutImageUrl =
   <section class="aboutSimple section" id="about">
     <div class="container">
       <h2 class="section-title">{{ aboutTitle }}</h2>
-      <p class="section-subtitle">Коротко и понятно: кто мы и как работаем.</p>
+      <!-- <p class="section-subtitle">Коротко и понятно: кто мы и как работаем.</p> -->
 
       <div class="aboutSimple__grid">
         <div class="card card-pad aboutSimple__text">

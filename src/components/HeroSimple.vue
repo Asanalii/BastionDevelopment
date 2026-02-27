@@ -4,7 +4,8 @@ const heroImageUrl =
   "https://avatars.mds.yandex.net/i?id=523e4a7c47981a165e23cbd73c9ec183_l-12884893-images-thumbs&n=13";
 
 const heroTitle = 'ТОО "BASTION DEVELOPMENT"';
-const heroSubtitle = "Управление объектами и строительные работы";
+const heroSubtitle =
+  "Строительная компания полного цикла: гражданское и промышленное строительство.";
 
 function scrollToNextSection() {
   const nextSection =

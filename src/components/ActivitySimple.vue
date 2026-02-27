@@ -270,7 +270,7 @@ onBeforeUnmount(() => window.removeEventListener("keydown", onKeydown));
   <section class="activitySimple section" id="activity">
     <div class="container">
       <h2 class="section-title">{{ sectionTitle }}</h2>
-      <p class="section-subtitle">Что именно делаем — простыми словами.</p>
+      <!-- <p class="section-subtitle">Что именно делаем — простыми словами.</p> -->
 
       <div class="grid activitySimple__grid">
         <button
