@@ -11,59 +11,82 @@ const swiperModules = [Autoplay];
 const partners = computed(() => [
   {
     id: "partner-1",
-    name: "АО «Казахстанский электролизный завод»",
-    imageUrl: "https://engineering-networks.kz/img/partner1.png?v=20102025-5",
+    name: "АО «ПАВЛАДАРЭНЕРГО»",
+    imageUrl: "https://pavlodarenergo.kz/images/logo_ru.png",
     imageAlt: "Партнер 1",
   },
   {
     id: "partner-2",
-    name: "АО «КазТрансОйл»",
-    imageUrl: "https://engineering-networks.kz/img/partner2.png?v=20102025-5",
+    name: "АО «СЕВКАЗЭНЕРГО»",
+    imageUrl: "https://www.sevkazenergo.kz/images/logo_ru.png",
     imageAlt: "Партнер 2",
   },
   {
     id: "partner-3",
-    name: "ТОО «Павлодарский нефтехимический завод»",
-    imageUrl: "https://engineering-networks.kz/img/partner3.png?v=20102025-5",
+    name: "АО «Павлодарская Распределительная Электросетевая Компания»",
+    imageUrl: "https://pavlodarenergo.kz/images/logo_ru.png",
     imageAlt: "Партнер 3",
   },
   {
-    id: "partner-1",
-    name: "АО «Казахстанский электролизный завод»",
-    imageUrl: "https://engineering-networks.kz/img/partner1.png?v=20102025-5",
-    imageAlt: "Партнер 1",
+    id: "partner-4",
+    name: "АО «Северо-Казахстанская Распределительная Электросетевая Компания»",
+    imageUrl: "https://www.sevkazenergo.kz/images/logo_ru.png",
+    imageAlt: "Партнер 4",
   },
   {
-    id: "partner-2",
-    name: "АО «КазТрансОйл»",
-    imageUrl: "https://engineering-networks.kz/img/partner2.png?v=20102025-5",
-    imageAlt: "Партнер 2",
-  },
-  {
-    id: "partner-3",
-    name: "ТОО «Павлодарский нефтехимический завод»",
-    imageUrl: "https://engineering-networks.kz/img/partner3.png?v=20102025-5",
-    imageAlt: "Партнер 3",
-  },
-  {
-    id: "partner-1",
-    name: "АО «Казахстанский электролизный завод»",
-    imageUrl: "https://engineering-networks.kz/img/partner1.png?v=20102025-5",
-    imageAlt: "Партнер 1",
-  },
-  {
-    id: "partner-2",
-    name: "АО «КазТрансОйл»",
-    imageUrl: "https://engineering-networks.kz/img/partner2.png?v=20102025-5",
-    imageAlt: "Партнер 2",
-  },
-  {
-    id: "partner-3",
-    name: "ТОО «Павлодарский нефтехимический завод»",
-    imageUrl: "https://engineering-networks.kz/img/partner3.png?v=20102025-5",
-    imageAlt: "Партнер 3",
+    id: "partner-5",
+    name: "АО «Акмолинская распределительная электросетевая компания»",
+    imageUrl: "https://www.arek.kz/assets/templates/main/images/logo_ru.png",
+    imageAlt: "Партнер 5",
   },
 ]);
+
+// const partners = computed(() => [
+//   {
+//     id: "partner-1",
+//     name: "АО «Казахстанский электролизный завод»",
+//     imageUrl: "https://engineering-networks.kz/img/partner1.png?v=20102025-5",
+//     imageAlt: "Партнер 1",
+//     caption:
+//       "Казахстанский электролизный завод — работы на объекте (пример подписи).",
+//   },
+//   {
+//     id: "partner-2",
+//     name: "АО «КазТрансОйл»",
+//     imageUrl: "https://engineering-networks.kz/img/partner2.png?v=20102025-5",
+//     imageAlt: "Партнер 2",
+//     caption: "КазТрансОйл — выполненные работы / проект (пример подписи).",
+//   },
+//   {
+//     id: "partner-3",
+//     name: "ТОО «Павлодарский нефтехимический завод»",
+//     imageUrl: "https://engineering-networks.kz/img/partner3.png?v=20102025-5",
+//     imageAlt: "Партнер 3",
+//     caption: "ПНХЗ — участок работ, реконструкция (пример подписи).",
+//   },
+//   {
+//     id: "partner-1",
+//     name: "АО «Казахстанский электролизный завод»",
+//     imageUrl: "https://engineering-networks.kz/img/partner1.png?v=20102025-5",
+//     imageAlt: "Партнер 1",
+//     caption:
+//       "Казахстанский электролизный завод — работы на объекте (пример подписи).",
+//   },
+//   {
+//     id: "partner-2",
+//     name: "АО «КазТрансОйл»",
+//     imageUrl: "https://engineering-networks.kz/img/partner2.png?v=20102025-5",
+//     imageAlt: "Партнер 2",
+//     caption: "КазТрансОйл — выполненные работы / проект (пример подписи).",
+//   },
+//   {
+//     id: "partner-3",
+//     name: "ТОО «Павлодарский нефтехимический завод»",
+//     imageUrl: "https://engineering-networks.kz/img/partner3.png?v=20102025-5",
+//     imageAlt: "Партнер 3",
+//     caption: "ПНХЗ — участок работ, реконструкция (пример подписи).",
+//   },
+// ]);
 </script>
 
 <template>
@@ -126,7 +149,8 @@ const partners = computed(() => [
   padding: 64px 0;
   z-index: 1;
 
-  background: radial-gradient(
+  background:
+    radial-gradient(
       900px 520px at 72% -10%,
       rgba(201, 164, 92, 0.12),
       transparent 60%
@@ -208,7 +232,9 @@ const partners = computed(() => [
   justify-items: center;
 
   padding: 18px 16px;
-  transition: transform 0.25s var(--ease), border-color 0.25s var(--ease);
+  transition:
+    transform 0.25s var(--ease),
+    border-color 0.25s var(--ease);
 }
 
 .partner-card:hover {

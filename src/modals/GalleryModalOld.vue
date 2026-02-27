@@ -5,17 +5,13 @@ import { computed, onBeforeUnmount, onMounted, ref, watch } from "vue";
 const props = defineProps({
   isOpen: { type: Boolean, required: true },
   title: { type: String, default: "" },
-
-  // ✅ совместимость:
-  // - string[]  (старый формат)
-  // - { url: string, caption?: string }[] (новый формат)
-  images: { type: Array, default: () => [] },
-
+  images: { type: Array, default: () => [] }, // массив строк (url)
   startIndex: { type: Number, default: 0 },
-  imageVersion: { type: String, default: "" },
+  imageVersion: { type: String, default: "" }, // например "20102025-5"
 });
 
 const emit = defineEmits(["close"]);
+
 const currentIndex = ref(props.startIndex);
 
 watch(
@@ -32,32 +28,10 @@ watch(
   },
 );
 
-// ✅ приводим к единому виду: { url, caption }
-const normalizedSlides = computed(() => {
-  if (!Array.isArray(props.images)) return [];
-
-  return props.images
-    .map((item) => {
-      if (typeof item === "string") {
-        return { url: item, caption: "" };
-      }
-
-      if (item && typeof item === "object") {
-        const urlValue = item.url || item.imageUrl || "";
-        const captionValue =
-          item.caption || item.description || item.title || "";
-        return { url: urlValue, caption: captionValue };
-      }
-
-      return { url: "", caption: "" };
-    })
-    .filter((slide) => Boolean(slide.url));
-});
-
-const totalSlides = computed(() => normalizedSlides.value.length);
+const totalSlides = computed(() => props.images.length);
 
 const currentSlide = computed(() => {
-  return normalizedSlides.value[currentIndex.value] || null;
+  return props.images[currentIndex.value] || null;
 });
 
 const currentImageUrl = computed(() => {
@@ -74,6 +48,16 @@ const currentImageUrl = computed(() => {
 const currentCaption = computed(() => {
   return currentSlide.value?.caption || "";
 });
+// const currentImageUrl = computed(() => {
+//   const rawUrl = props.images[currentIndex.value] || "";
+//   if (!rawUrl) return "";
+
+//   if (!props.imageVersion) return rawUrl;
+
+//   const hasQuery = rawUrl.includes("?");
+//   const separator = hasQuery ? "&" : "?";
+//   return `${rawUrl}${separator}v=${props.imageVersion}`;
+// });
 
 function goNext() {
   if (!totalSlides.value) return;
@@ -98,7 +82,7 @@ function onBackdropClick(event) {
 function onKeydown(event) {
   if (!props.isOpen) return;
 
-  // if (event.key === "Escape") closeModal();
+  if (event.key === "Escape") closeModal();
   if (event.key === "ArrowRight") goNext();
   if (event.key === "ArrowLeft") goPrev();
 }
@@ -109,7 +93,7 @@ onBeforeUnmount(() => window.removeEventListener("keydown", onKeydown));
 
 <template>
   <teleport to="body">
-    <div v-if="isOpen" class="modal">
+    <div v-if="isOpen" class="modal" @click="onBackdropClick">
       <button class="close" type="button" @click="closeModal">×</button>
 
       <div class="modal-content">

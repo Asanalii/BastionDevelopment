@@ -1,3 +1,4 @@
+<!-- ProjectsSection.vue -->
 <script setup>
 import { computed, ref } from "vue";
 
@@ -15,10 +16,25 @@ const projects = computed(() => [
     title: "Павлодарский нефтехимический завод",
     preview: "https://engineering-networks.kz/img/project1.jpg?v=20102025-5",
     images: [
-      "https://engineering-networks.kz/img/project1.jpg",
-      "https://engineering-networks.kz/img/project1-1.jpg",
-      "https://engineering-networks.kz/img/project1-2.jpg",
-      "https://engineering-networks.kz/img/project1-3.jpg",
+      {
+        url: "https://engineering-networks.kz/img/project1.jpg",
+        caption: "Демонтаж участка тара пара туру пуру тирим пири lorem",
+      },
+      {
+        url: "https://engineering-networks.kz/img/project1-1.jpg",
+        caption: "Монтаж конструкций",
+      },
+      {
+        url: "https://engineering-networks.kz/img/project1-2.jpg",
+        caption:
+          "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
+      },
+      {
+        url: "https://engineering-networks.kz/img/project1-3.jpg",
+        caption:
+          "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
+      },
+
       "https://engineering-networks.kz/img/project1-4.jpg",
       "https://engineering-networks.kz/img/project1-5.jpg",
       "https://engineering-networks.kz/img/project1-6.jpg",
@@ -292,7 +308,9 @@ function closeModal() {
   padding: 14px;
   cursor: pointer;
   text-align: center;
-  transition: transform 0.25s var(--ease), border-color 0.25s var(--ease);
+  transition:
+    transform 0.25s var(--ease),
+    border-color 0.25s var(--ease);
 }
 
 .project-card:hover {

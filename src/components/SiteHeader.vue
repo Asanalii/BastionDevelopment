@@ -5,14 +5,16 @@ import { ref } from "vue";
 const isOpen = ref(false);
 
 const links = [
-  { label: "Услуги", href: "#services" },
-  { label: "Преимущества", href: "#advantages" },
-  { label: "Процесс", href: "#process" },
+  // { label: "Услуги", href: "#services" },
+  // { label: "Преимущества", href: "#advantages" },
+  // { label: "Процесс", href: "#process" },
+  { label: "О компании", href: "#about" },
+  { label: "Деятельность", href: "#activity" },
   { label: "Партнеры", href: "#partners" },
+  // { label: "Проекты", href: "#projects" },
   { label: "Лицензии", href: "#licenses" },
-  { label: "Проекты", href: "#projects" },
-  { label: "Сертификаты", href: "#certificates" },
-  { label: "FAQ", href: "#faq" },
+  // { label: "Сертификаты", href: "#certificates" },
+  // { label: "FAQ", href: "#faq" },
   { label: "Контакты", href: "#contacts" },
 ];
 
@@ -102,7 +104,8 @@ function closeMenu() {
   width: 38px;
   height: 38px;
   border-radius: 12px;
-  background: radial-gradient(
+  background:
+    radial-gradient(
       12px 12px at 30% 35%,
       rgba(201, 164, 92, 0.9),
       rgba(201, 164, 92, 0) 60%

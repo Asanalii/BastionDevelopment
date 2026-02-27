@@ -3,6 +3,10 @@
 import { useReveal } from "./composables/useReveal";
 import { useSpotlight } from "./composables/useSpotlight";
 
+import HeroSimple from "./components/HeroSimple.vue";
+import AboutSimple from "./components/AboutSimple.vue";
+import ActivitySimple from "./components/ActivitySimple.vue";
+
 import SiteHeader from "./components/SiteHeader.vue";
 import HeroSection from "./components/HeroSection.vue";
 import ServicesSection from "./components/ServicesSection.vue";
@@ -26,20 +30,25 @@ useSpotlight(".spotlight");
   <div class="app">
     <SiteHeader />
     <main>
-      <HeroSection />
+      <HeroSimple />
+
+      <AboutSimple />
+
+      <ActivitySimple />
+
+      <!-- <HeroSection />
       <ServicesSection />
-      <AdvantagesSection />
+      <AdvantagesSection /> -->
 
       <GallerySection />
 
-      <ProjectsSection />
+      <!-- <ProjectsSection /> -->
       <CertificatesSection />
 
-      <WorksSection />
-
-      <ProcessSection />
-      <LicensesSection />
-      <FaqSection />
+      <!-- <WorksSection /> -->
+      <!-- <ProcessSection /> -->
+      <!-- <LicensesSection /> -->
+      <!-- <FaqSection /> -->
       <ContactSection />
     </main>
     <SiteFooter />
